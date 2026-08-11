@@ -7,6 +7,7 @@ $teams = Import-Csv (Join-Path $root 'data/teams.csv')
 $players = Import-Csv (Join-Path $root 'data/players.csv')
 $donorPath = Join-Path $root 'data/donor-teams.csv'
 $slotMapPath = Join-Path $root 'data/player-slot-map.csv'
+$localizationMapPath = Join-Path $root 'data/localization-map.csv'
 $errors = [System.Collections.Generic.List[string]]::new()
 
 $duplicateTeams = $teams | Group-Object team_id | Where-Object Count -ne 1
@@ -54,6 +55,12 @@ if (Test-Path -LiteralPath $slotMapPath) {
     $sourceKeys = @($players | ForEach-Object { "$($_.team_id)|$($_.player_name)|$($_.position_group)" } | Sort-Object)
     $mappedKeys = @($slotMap | ForEach-Object { "$($_.pwhl_team_id)|$($_.player_name)|$($_.position_group)" } | Sort-Object)
     if (Compare-Object $sourceKeys $mappedKeys) { $errors.Add('Player-slot map does not exactly match canonical players.csv') }
+}
+if (Test-Path -LiteralPath $localizationMapPath) {
+    $localizationMap = Import-Csv -LiteralPath $localizationMapPath
+    if ($localizationMap.Count -lt 56) { $errors.Add("Localization map has only $($localizationMap.Count) rows; expected at least seven per team") }
+    if (($localizationMap.record | Sort-Object -Unique).Count -ne $localizationMap.Count) { $errors.Add('Localization records must be unique') }
+    if (($localizationMap | Group-Object pwhl_team_id | Where-Object Count -lt 7)) { $errors.Add('Every active team must have at least seven localization entries') }
 }
 
 if ($errors.Count -gt 0) {

@@ -34,4 +34,6 @@ The first playable build uses eight AHL roster slots with at least 23 roster row
 
 The canonical allocation is tracked in `data/donor-teams.csv`. `data/player-slot-map.csv` binds every PWHL player to one unique roster row, player-index row, bio row, game ID, and existing ratings/equipment record. The validated mix is 13 forwards, 7 defenders, and 3 goalies per club.
 
+Front-end team labels do not come directly from `exhibitionteams`. NHL Legacy uses the donor art abbreviation to resolve localization entries such as `NHLTEAMNAME_*`, `NHLCITYNAME_*`, `TEAMLINE1_*`, `TEAMLINE2_*`, nickname, and abbreviation keys. The 65 exact record/hash-preserving replacements are tracked in `data/localization-map.csv` and applied to `fe/loc/nhl_eng_us.db` with NHL Modding Studio's native localization editor. Do not save this file through TDBAccess: its compressed string fields are not persisted correctly.
+
 The tracked `reports/nhlng-schema.json` is the machine-readable source of table capacities, field widths, types, and names.

@@ -31,13 +31,13 @@ From PowerShell in this repository:
 
 For an Xbox 360/recompiled roster container, add `-ContainerFormat Xbox360` when exporting its schema.
 
-To build the current ignored binary candidate from protected baseline copies:
+Team and player records can be rebuilt from the protected baseline automatically. English front-end strings must first be edited and saved with **NHL Modding Studio's native localization editor**; the legacy TDBAccess saver cannot safely persist this database's compressed strings. Apply the exact rows in `data/localization-map.csv`, save the result as `work/localization/nhl_eng_us.db`, then build:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/Build-Phase1Database.ps1
 ```
 
-The generated files and SHA-256 manifest are written to `work/build/phase1/`. The current candidate contains all eight team identities and 184 player names/positions while retaining donor IDs, ratings, equipment, art, arenas, and valid line assignments.
+The build verifies all 65 localization values before copying anything. Generated files and a SHA-256 manifest are written to `work/build/phase1/`. The current candidate contains all eight team identities, English front-end localization, and 184 player names/positions while retaining donor IDs, ratings, equipment, art, arenas, and valid line assignments.
 
 After closing NHL Legacy, install it into the recompiled build with:
 
@@ -47,7 +47,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/Install-Recompiled
 
 The installer accepts only the known baseline or current candidate checksum, backs up the installed database under `work/deploy-backups/`, and verifies the copied result.
 
-Open the working database and a roster save in **NHL Modding Studio**. Never edit the files under `../game` directly.
+Open a working database and roster save in **NHL Modding Studio**. Keep an untouched baseline and install only through the checksum-verifying script.
 
 ## Target scope
 

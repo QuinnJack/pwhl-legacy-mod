@@ -1,9 +1,9 @@
-pwhl_team_id,donor_team_id,donor_record,donor_name,reason
-BOS,43,43,Lehigh Valley Phantoms,Complete AHL roster with three native goalie records
-MIN,37,37,Chicago Wolves,Complete Midwest AHL roster with three native goalie records
-MTL,58,58,Texas Stars,Complete AHL roster with three native goalie records
-NY,39,39,Hartford Wolf Pack,Complete AHL roster and New York-region presentation donor
-OTT,52,52,San Antonio Rampage,Complete AHL roster with three native goalie records
-SEA,53,53,San Diego Gulls,Complete western AHL roster with native goalie depth
-TOR,59,59,Toronto Marlies,Complete AHL roster and Toronto presentation donor
-VAN,46,46,Ontario Reign,Complete western AHL roster with three native goalie records
+pwhl_team_id,donor_team_id,donor_record,localization_abbr,donor_name,reason
+BOS,43,43,LEH,Lehigh Valley Phantoms,Complete AHL roster with three native goalie records
+MIN,37,37,CHA,Chicago Wolves,Complete Midwest AHL roster with three native goalie records
+MTL,58,58,TEX,Texas Stars,Complete AHL roster with three native goalie records
+NY,39,39,HAR,Hartford Wolf Pack,Complete AHL roster and New York-region presentation donor
+OTT,52,52,SAN,San Antonio Rampage,Complete AHL roster with three native goalie records
+SEA,53,53,SD,San Diego Gulls,Complete western AHL roster with native goalie depth
+TOR,59,59,TOA,Toronto Marlies,Complete AHL roster and Toronto presentation donor
+VAN,46,46,ONT,Ontario Reign,Complete western AHL roster with three native goalie records
