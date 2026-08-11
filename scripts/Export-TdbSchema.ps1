@@ -6,7 +6,9 @@ param(
     [string]$TdbAccessDll,
     [Parameter(Mandatory)]
     [string]$OutputPath,
-    [string]$MetadataPath
+    [string]$MetadataPath,
+    [ValidateSet('Plain', 'Xbox360', 'PS3')]
+    [string]$ContainerFormat = 'Plain'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -67,6 +69,12 @@ public static class TdbNative
     [DllImport("tdbaccess.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
     public static extern Int32 TDBOpen(string fileName);
 
+    [DllImport("tdbaccess.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+    public static extern Int32 TDBOpenXbox360Save(string fileName);
+
+    [DllImport("tdbaccess.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+    public static extern Int32 TDBOpenPS3Save(string saveDirectory);
+
     [DllImport("tdbaccess.dll", CallingConvention = CallingConvention.StdCall)]
     [return: MarshalAs(UnmanagedType.I1)]
     public static extern bool TDBClose(Int32 dbIndex);
@@ -100,7 +108,11 @@ $fieldTypes = @{
     716 = 'int'
 }
 
-$db = [TdbNative]::TDBOpen($dbPath)
+$db = switch ($ContainerFormat) {
+    'Xbox360' { [TdbNative]::TDBOpenXbox360Save($dbPath) }
+    'PS3' { [TdbNative]::TDBOpenPS3Save($dbPath) }
+    default { [TdbNative]::TDBOpen($dbPath) }
+}
 if ($db -lt 0) { throw "TDBAccess could not open $dbPath" }
 
 try {
@@ -146,6 +158,7 @@ try {
 
     $result = [ordered]@{
         source_file = [IO.Path]::GetFileName($dbPath)
+        container_format = $ContainerFormat
         source_sha256 = (Get-FileHash -LiteralPath $dbPath -Algorithm SHA256).Hash.ToLowerInvariant()
         generated_utc = [DateTime]::UtcNow.ToString('o')
         table_count = $tableCount

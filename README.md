@@ -20,12 +20,14 @@ From PowerShell in this repository:
 
 ```powershell
 ./scripts/Test-SourceData.ps1
-./scripts/Initialize-Workspace.ps1 -GameRoot ../game
+./scripts/Initialize-Workspace.ps1 -GameRoot ../game -RosterPath <path-to-roster-save>
 ./scripts/Export-TdbSchema.ps1 `
   -DatabasePath ./work/baseline/nhlng.db `
   -TdbAccessDll ../_tools/TDBAccess/x64/tdbaccess.dll `
   -OutputPath ./reports/nhlng-schema.json
 ```
+
+For an Xbox 360/recompiled roster container, add `-ContainerFormat Xbox360` when exporting its schema.
 
 Open the working database and a roster save in **NHL Modding Studio**. Never edit the files under `../game` directly.
 
@@ -44,4 +46,3 @@ Version 0.1 targets the completed 2025-26 eight-team league because official ros
 ## Legal
 
 This is an unofficial fan project. PWHL, team names, and related marks belong to their respective owners. EA SPORTS and NHL Legacy Edition belong to their respective owners. No game binaries or extracted copyrighted assets are distributed here.
-

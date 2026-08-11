@@ -2,6 +2,7 @@
 param(
     [Parameter(Mandatory)]
     [string]$GameRoot,
+    [string]$RosterPath,
     [switch]$Force
 )
 
@@ -22,6 +23,14 @@ foreach ($entry in $sources.GetEnumerator()) {
     if (-not (Test-Path -LiteralPath $entry.Value)) { throw "Required game file not found: $($entry.Value)" }
 }
 
+if ($RosterPath) {
+    $resolvedRoster = (Resolve-Path $RosterPath).Path
+    $rosterBaseline = Join-Path $baseline 'roster-save.bin'
+    $rosterWorking = Join-Path $working 'roster-save.bin'
+    if ($Force -or -not (Test-Path -LiteralPath $rosterBaseline)) { Copy-Item -LiteralPath $resolvedRoster -Destination $rosterBaseline -Force }
+    if ($Force -or -not (Test-Path -LiteralPath $rosterWorking)) { Copy-Item -LiteralPath $rosterBaseline -Destination $rosterWorking -Force }
+}
+
 New-Item -ItemType Directory -Force $baseline, $working | Out-Null
 
 foreach ($entry in $sources.GetEnumerator()) {
@@ -40,8 +49,12 @@ $hashes = foreach ($name in $sources.Keys) {
     $hash = Get-FileHash -LiteralPath $path -Algorithm SHA256
     [pscustomobject]@{ file = $name; sha256 = $hash.Hash.ToLowerInvariant(); bytes = (Get-Item $path).Length }
 }
+if (Test-Path -LiteralPath (Join-Path $baseline 'roster-save.bin')) {
+    $path = Join-Path $baseline 'roster-save.bin'
+    $hash = Get-FileHash -LiteralPath $path -Algorithm SHA256
+    $hashes += [pscustomobject]@{ file = 'roster-save.bin'; sha256 = $hash.Hash.ToLowerInvariant(); bytes = (Get-Item $path).Length }
+}
 $hashes | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $baseline 'checksums.json') -Encoding UTF8
 
 Write-Host "Baseline and working copies prepared under $root\work."
 Write-Host 'Original game files were not modified.'
-
