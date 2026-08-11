@@ -39,6 +39,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/Build-Phase1Databa
 
 The generated files and SHA-256 manifest are written to `work/build/phase1/`. The current candidate contains all eight team identities and 184 player names/positions while retaining donor IDs, ratings, equipment, art, arenas, and valid line assignments.
 
+After closing NHL Legacy, install it into the recompiled build with:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/Install-RecompiledCandidate.ps1
+```
+
+The installer accepts only the known baseline or current candidate checksum, backs up the installed database under `work/deploy-backups/`, and verifies the copied result.
+
 Open the working database and a roster save in **NHL Modding Studio**. Never edit the files under `../game` directly.
 
 ## Target scope
