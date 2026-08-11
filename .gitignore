@@ -1,0 +1,25 @@
+# Local game/tool installations and copyrighted binaries
+_tools/
+game/
+work/
+dist/
+*.db
+*.big
+*.viv
+*.iso
+*.xex
+*.elf
+*.exe
+*.dll
+*.zip
+*.rar
+
+# Generated reports (the schema snapshot is intentionally tracked)
+reports/*.tmp.json
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
