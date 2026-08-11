@@ -1,6 +1,6 @@
 # Implementation plan
 
-## Phase 0 — safe foundation (in progress)
+## Phase 0 — safe foundation (complete)
 
 - Inventory the extracted recompiled game and community tools.
 - Preserve checksums for pristine databases and work only on copies.
@@ -9,9 +9,10 @@
 
 Exit condition: source data validates, working DB copies are reproducible, and the base schemas are documented.
 
-## Phase 1 — playable eight-team roster
+## Phase 1 — playable eight-team roster (in progress)
 
 - Select eight low-impact donor teams with compatible roster/line slots.
+- Apply all eight team identities and 184 player names/positions to both database formats.
 - Map all 184 active 2025-26 players into roster tables.
 - Add dates, handedness, jersey numbers, nationality, height/weight, positions, and conservative ratings.
 - Build valid forward, defense, power-play, penalty-kill, extra-attacker, and goalie lines.
@@ -49,4 +50,3 @@ Exit condition: a season can be started, saved, advanced, and completed.
 - Add checksum gates so patches only apply to supported baselines.
 - Maintain smoke-test and regression checklists for exhibition, season, save/load, shootout, and multiplayer.
 - Publish releases without original game files, downloaded third-party tools, or unlicensed source assets.
-

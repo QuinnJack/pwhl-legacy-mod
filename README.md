@@ -4,12 +4,14 @@ An in-progress PWHL total-conversion mod for **NHL Legacy Edition**, initially t
 
 ## Current milestone
 
-The repository contains the first reproducible data layer:
+The repository contains the first reproducible Phase 1 database candidate:
 
 - all eight 2025-26 opening-night PWHL teams and 184 active players;
 - placeholders for the four official 2026-27 expansion markets;
 - validation scripts and a safe local workspace initializer;
 - an EA TDB schema exporter used to map `nhlng.db` and roster tables before mutation;
+- eight audited AHL donor slots and a one-to-one map for all 184 PWHL players;
+- repeatable writers that rename teams and players in both `nhlng.db` and an Xbox 360/recompiled roster container;
 - research notes, tool inventory, implementation plan, and source links.
 
 Game files, commercial assets, downloaded tools, and modified binary databases are deliberately excluded from Git. Contributors must provide their own legally obtained copy of NHL Legacy Edition.
@@ -28,6 +30,14 @@ From PowerShell in this repository:
 ```
 
 For an Xbox 360/recompiled roster container, add `-ContainerFormat Xbox360` when exporting its schema.
+
+To build the current ignored binary candidate from protected baseline copies:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/Build-Phase1Database.ps1
+```
+
+The generated files and SHA-256 manifest are written to `work/build/phase1/`. The current candidate contains all eight team identities and 184 player names/positions while retaining donor IDs, ratings, equipment, art, arenas, and valid line assignments.
 
 Open the working database and a roster save in **NHL Modding Studio**. Never edit the files under `../game` directly.
 

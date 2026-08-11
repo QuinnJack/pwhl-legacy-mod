@@ -28,5 +28,10 @@ The base `nhlng.db` contains 134 tables. The initial playable roster touches a m
 5. Update both roster/team records and the localization database for visible names.
 6. Save to a new candidate DB, reopen it in a second editor, and compare table counts/checksums before testing in-game.
 
-The tracked `reports/nhlng-schema.json` is the machine-readable source of table capacities, field widths, types, and names.
+## Phase 1 donor allocation
 
+The first playable build uses eight AHL roster slots with at least 23 roster rows and three native goalie records. This prioritizes database integrity over geographic presentation; arena and art identity will be replaced later.
+
+The canonical allocation is tracked in `data/donor-teams.csv`. `data/player-slot-map.csv` binds every PWHL player to one unique roster row, player-index row, bio row, game ID, and existing ratings/equipment record. The validated mix is 13 forwards, 7 defenders, and 3 goalies per club.
+
+The tracked `reports/nhlng-schema.json` is the machine-readable source of table capacities, field widths, types, and names.

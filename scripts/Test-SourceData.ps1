@@ -5,6 +5,8 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $teams = Import-Csv (Join-Path $root 'data/teams.csv')
 $players = Import-Csv (Join-Path $root 'data/players.csv')
+$donorPath = Join-Path $root 'data/donor-teams.csv'
+$slotMapPath = Join-Path $root 'data/player-slot-map.csv'
 $errors = [System.Collections.Generic.List[string]]::new()
 
 $duplicateTeams = $teams | Group-Object team_id | Where-Object Count -ne 1
@@ -36,6 +38,24 @@ foreach ($team in $activeTeams) {
     }
 }
 
+if (Test-Path -LiteralPath $donorPath) {
+    $donors = Import-Csv -LiteralPath $donorPath
+    if ($donors.Count -ne 8) { $errors.Add("Donor map has $($donors.Count) rows; expected 8") }
+    if (($donors.pwhl_team_id | Sort-Object -Unique).Count -ne 8) { $errors.Add('Donor PWHL team IDs must be unique') }
+    if (($donors.donor_record | Sort-Object -Unique).Count -ne 8) { $errors.Add('Donor database records must be unique') }
+}
+
+if (Test-Path -LiteralPath $slotMapPath) {
+    $slotMap = Import-Csv -LiteralPath $slotMapPath
+    if ($slotMap.Count -ne 184) { $errors.Add("Player-slot map has $($slotMap.Count) rows; expected 184") }
+    foreach ($field in @('bio_record', 'roster_record', 'player_index', 'game_id')) {
+        if (($slotMap.$field | Sort-Object -Unique).Count -ne 184) { $errors.Add("Player-slot map field '$field' must be unique") }
+    }
+    $sourceKeys = @($players | ForEach-Object { "$($_.team_id)|$($_.player_name)|$($_.position_group)" } | Sort-Object)
+    $mappedKeys = @($slotMap | ForEach-Object { "$($_.pwhl_team_id)|$($_.player_name)|$($_.position_group)" } | Sort-Object)
+    if (Compare-Object $sourceKeys $mappedKeys) { $errors.Add('Player-slot map does not exactly match canonical players.csv') }
+}
+
 if ($errors.Count -gt 0) {
     $errors | ForEach-Object { Write-Error $_ }
     exit 1
@@ -43,4 +63,4 @@ if ($errors.Count -gt 0) {
 
 Write-Host "Validated $($teams.Count) teams and $($players.Count) active-player rows."
 Write-Host "Eight-team baseline: $($activeTeams.Count) teams x 23 players."
-
+if (Test-Path -LiteralPath $slotMapPath) { Write-Host 'Validated 184 unique donor player, roster, bio, and ratings links.' }
