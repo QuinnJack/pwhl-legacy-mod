@@ -61,6 +61,14 @@ Version 0.1 targets the completed 2025-26 eight-team league because official ros
 - `reports/` — checked-in schema snapshots and generated audit summaries.
 - `work/` — ignored local copies of game/roster databases.
 
+## Asset work
+
+- [Portrait, ratings, and uniform pipeline](docs/ASSET-PIPELINE.md)
+- `data/pwhl-player-sources.csv` maps all 184 players to official league IDs, headshots, media, profiles, statistics, and their existing portrait-art slots.
+- `data/uniform-assets.csv` maps every home/away set to the exact donor jersey, pant, and sock paths used by the installed mod.
+- Run `scripts/Sync-PwhlPlayerSources.ps1` to refresh the official player-source map.
+- Run `scripts/Sync-EaPwhlRatings.mjs` to refresh the 50 official NHL 26 PWHL attribute rows used to seed the intake workbook.
+
 ## Legal
 
 This is an unofficial fan project. PWHL, team names, and related marks belong to their respective owners. EA SPORTS and NHL Legacy Edition belong to their respective owners. No game binaries or extracted copyrighted assets are distributed here.

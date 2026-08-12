@@ -1,0 +1,14 @@
+{"kind":"workbook","id":"wb/m80xnn","sheets":7}
+{"kind":"sheet","id":"ws/envw1o","name":"Start Here","index":0,"range":"A1:H16","address":"A1:H16","formulas":6}
+{"kind":"formula","sheet":"Start Here","address":"B7","formula":"=COUNTA(Players!B2:B185)"}
+{"kind":"formula","sheet":"Start Here","address":"B8","formula":"=COUNTIF(Portraits!H2:H185,\"Source mapped\")"}
+{"kind":"formula","sheet":"Start Here","address":"B9","formula":"=COUNTIF(Portraits!I2:I185,\"Approved\")"}
+{"kind":"formula","sheet":"Start Here","address":"B10","formula":"=COUNTIF('Skater Ratings'!D2:D161,\"EA official\")+COUNTIF('Goalie Ratings'!C2:C25,\"EA official\")"}
+{"kind":"formula","sheet":"Start Here","address":"B11","formula":"=COUNTIF('Skater Ratings'!AF2:AF161,\"Approved\")"}
+{"kind":"formula","sheet":"Start Here","address":"B12","formula":"=COUNTIF('Goalie Ratings'!AA2:AA25,\"Approved\")"}
+{"kind":"sheet","id":"ws/gb63hf","name":"Players","index":1,"range":"A1:O185","address":"A1:O185"}
+{"kind":"sheet","id":"ws/ga6a0s","name":"Portraits","index":2,"range":"A1:K185","address":"A1:K185"}
+{"kind":"sheet","id":"ws/91fdxs","name":"Skater Ratings","index":3,"range":"A1:AG161","address":"A1:AG161"}
+{"kind":"sheet","id":"ws/sufzxq","name":"Goalie Ratings","index":4,"range":"A1:AB25","address":"A1:AB25"}
+{"kind":"sheet","id":"ws/ibyqa8","name":"Uniforms","index":5,"range":"A1:W17","address":"A1:W17"}
+{"kind":"sheet","id":"ws/zjkabk","name":"Sources","index":6,"range":"A1:D7","address":"A1:D7"}

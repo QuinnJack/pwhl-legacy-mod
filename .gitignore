@@ -22,4 +22,6 @@ reports/*.tmp.json
 Thumbs.db
 .vscode/
 .idea/
-
+node_modules/
+*.xlsx.inspect.ndjson
+outputs/**/previews/
